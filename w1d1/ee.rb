@@ -3,9 +3,14 @@
 class Array
 
   def my_each
-    for i in (0..self.length-1)
+    i = 0
+    return_value = []
+    until i == self.length
       yield self[i]
+      return_value << self[i]
+      i += 1
     end
+    return_value
   end
 
   def my_select
@@ -21,17 +26,13 @@ class Array
   end
 
   def my_any?
-    my_each do |x|
-      return true if yield(x)
-    end
-    return false
+    self.my_each { |x| return true if yield(x) }
+    false
   end
 
   def my_all?
-    my_each do |x|
-      return false unless yield(x)
-    end
-    return true
+    my_each { |x| return false unless yield(x) }
+    true
   end
 
   def my_flatten(flattened = [])
@@ -47,7 +48,7 @@ class Array
 
   def my_zip(*inputs)
     result = Array.new(self.length) { Array.new }
-    (0..self.length-1).to_a.my_each do |i|
+    (0...self.length).to_a.my_each do |i|
       result[i] << self[i]
       inputs.my_each do |array|
         result[i] << array[i]
@@ -66,16 +67,14 @@ class Array
 
   def my_join(space = "")
     string = ""
-    my_each do |x|
-      string.length == 0 ? string = x.to_s : string = string + space + x.to_s
-    end
+    my_each { |x| string.length == 0 ? string = x.to_s : string = string + space + x.to_s }
     string
   end
 
   def my_reverse
     copy = self.dup
     reversed = []
-    while copy.length > 0
+    until copy.empty?
       reversed << copy.pop
     end
     reversed

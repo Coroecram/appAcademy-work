@@ -50,12 +50,11 @@ class Game
       play_round
       display_standings
     end
-    puts "#{@players[0].name} won the game!"
+    puts "\\n#{@players[0].name} won the game!"
   end
 
   def display_standings
-    puts
-    puts "Current Standings:"
+    puts "\\nCurrent Standings:"
     @players.each do |player|
       puts player.name + ": " + record(player)
     end
@@ -106,14 +105,10 @@ class AiPlayer
       ('a'..'z').to_a.sample
     else
       possibilities = game.dictionary.dup
-      possibilities.select! do |word|
-        word.length <= game.fragment.length+game.players.length-1 && word =~ /\A#{game.fragment}/
-      end
+      possibilities.select! { |word| word.length <= game.fragment.length+game.players.length-1 && word =~ /\A#{game.fragment}/ }
       if possibilities.nil?
         possibilities = game.dictionary.dup
-        possibilities.select! do |word|
-          word =~ /\A#{game.fragment}/
-        end
+        possibilities.select! { |word| word =~ /\A#{game.fragment}/ }
       end
       possibilities.to_a.sample[game.fragment.length]
     end
@@ -123,9 +118,8 @@ end
 class GuessError < ArgumentError
 end
 
-a = Player.new("William")
-b = Player.new("Mike")
-c = AiPlayer.new("Computer")
-
-g = Game.new([a, b, c])
-g.run
+if $PROGRAM_NAME == __FILE__
+  a, b, c = Player.new("William"), Player.new("Mike"), AiPlayer.new("Computer")
+  g = Game.new([a, b, c])
+  g.run
+end

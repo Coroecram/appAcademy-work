@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 
 class Card
-
-attr_reader :value, :state
+  attr_reader :value, :state
 
   def initialize(value)
     @value = value
@@ -15,7 +14,7 @@ attr_reader :value, :state
   end
 
   def hide
-      @state = :hidden
+    @state = :hidden
   end
 
   def reveal
@@ -38,35 +37,23 @@ class Board
   end
 
   def populate
-    card_array = []
-    card_index = 0
-    (0..((@board_size ** 2)/2)).each do |number|
+    (0..((@board_size ** 2)/2)).each_with_object([]) do |number, card_array|
       2.times { card_array << Card.new(number) }
     end
     card_array.shuffle!
-    @grid.each do |array|
-      @board_size.times do
-        array << card_array[card_index]
-        card_index += 1
-      end
-    end
+    @grid.each { |array| @board_size.times { |i| array << card_array[i] } }
   end
 
   def display
     @grid.each do  |arr|
       puts
-      arr.each do |card|
-        card.display
-      end
+      arr.each { |card| card.display }
     end
-    puts
-    puts
+    puts "\\n"
   end
 
   def won?
-    @grid.each do |array|
-      return false unless array.all? { |card| card.state == :show }
-    end
+    @grid.each { |array| return false if array.any? { |card| card.state == :hidden } }
   end
 
   def reveal(guess)
@@ -83,13 +70,13 @@ class Board
 end
 
 class Game
+  attr_accessor :board
+  attr_reader players
 
-  def initialize(player1, player2, board_size)
+  def initialize(board_size, *players)
     @board = Board.new(board_size)
     @guessed = []
-    @player1 = player1
-    @player2 = player2
-    @current_player = player1
+    @players = players
   end
 
   def play
@@ -196,7 +183,7 @@ if __FILE__ == $PROGRAM_NAME
   player1 = Player.new(player1)
   puts "Who is the second player? (Enter COMP for computer)"
   player2 = gets.chomp
-  if player2 == "COMP"
+  if player2.upcase == "COMP"
     player2 = ComputerPlayer.new
   else
     player2 = Player.new(player2)
@@ -217,6 +204,6 @@ if __FILE__ == $PROGRAM_NAME
     puts "Wrong size name, playing medium"
     board_size = 8
   end
-  g = Game.new(player1, player2, board_size)
+  g = Game.new(board_size, player1, player2)
   g.play
 end

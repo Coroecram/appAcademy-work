@@ -6,26 +6,20 @@ class Game
   def initialize(players)
     @players = players
     @dictionary = Set.new
-    File.open('ghost-dictionary.txt').each do |line|
-      @dictionary << line.chomp
-    end
+    File.open('ghost-dictionary.txt').each { |line| @dictionary << line.chomp }
     @fragment = ''
     @losses = Hash.new
-    @players.each do |player|
-      @losses[player] = 0
-    end
+    @players.each { |player| @losses[player] = 0 }
   end
 
   def play_round
-    until @dictionary.include?(@fragment)
-      puts "#{current_player.name} enter a letter:"
-      guess = take_turn(current_player)
+    until @dictionary.include?(@fragment) && !@dictionary.any?{ |word| word =~ /^#{@fragment}\w+\z/ }
+      guess = current_player.take_turn(self)
       @fragment += guess
       p @fragment
       next_player!
     end
-    @losses[previous_player] += 1
-    puts "#{previous_player.name} loses the round!"
+    round_loss
   end
 
   def current_player
@@ -38,22 +32,12 @@ class Game
 
   def next_player!
     @players.rotate!
-    if @losses[current_player] == 5
-      next_player!
-    end
+    next_player! if @losses[current_player] == 5
   end
 
-  def take_turn(player)
-    until valid_play?(guess = current_player.guess(self))
-      current_player.alert_invalid_guess
-    end
-    guess
-  end
-
-  def valid_play?(string)
-    string =~ /[a-z]/
-    check = @fragment + string
-    dictionary.any? { |word| word =~ /\A#{check}/}
+  def round_loss
+    @losses[previous_player] += 1
+    puts "#{previous_player.name} loses the round!"
   end
 
   def record(player)
@@ -86,12 +70,26 @@ class Player
     @name = name
   end
 
-  def guess(game)
-    gets.chomp
+  def take_turn(game)
+    puts "#{current_player.name} enter a letter:"
+    guess = player.make_guess(game)
+    rescue GuessError => e
+      puts e.message
+      retry
+    end
+    guess
   end
 
-  def alert_invalid_guess
-    puts "Please enter another letter"
+  def make_guess(game)
+    guess = gets.chomp
+    raise GuessError.new  "Please enter another letter" if valid_play?(guess, game)
+  end
+
+
+  def valid_play?(string, game)
+    return false unless string =~ /[a-z]/
+    check = game.fragment + string
+    game.dictionary.any? { |word| word =~ /\A#{check}/}
   end
 
 end
@@ -120,6 +118,9 @@ class AiPlayer
       possibilities.to_a.sample[game.fragment.length]
     end
   end
+end
+
+class GuessError < ArgumentError
 end
 
 a = Player.new("William")

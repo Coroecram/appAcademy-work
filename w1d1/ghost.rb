@@ -55,9 +55,7 @@ class Game
 
   def display_standings
     puts "\\nCurrent Standings:"
-    @players.each do |player|
-      puts player.name + ": " + record(player)
-    end
+    @players.each { |player| puts player.name + ": " + record(player) }
   end
 
 end
@@ -70,25 +68,24 @@ class Player
   end
 
   def take_turn(game)
-    puts "#{current_player.name} enter a letter:"
-    guess = player.make_guess(game)
+    puts "#{game.current_player.name} enter a letter:"
+    guess = make_guess(game)
     rescue GuessError => e
       puts e.message
       retry
-    end
     guess
   end
 
   def make_guess(game)
     guess = gets.chomp
-    raise GuessError.new  "Please enter another letter" if valid_play?(guess, game)
+    raise GuessError.new  "Please enter another letter" unless valid_play?(guess, game)
   end
 
 
   def valid_play?(string, game)
     return false unless string =~ /[a-z]/
     check = game.fragment + string
-    game.dictionary.any? { |word| word =~ /\A#{check}/}
+    game.dictionary.any? { |word| word =~ /\A#{check}/ }
   end
 
 end
@@ -113,6 +110,7 @@ class AiPlayer
       possibilities.to_a.sample[game.fragment.length]
     end
   end
+
 end
 
 class GuessError < ArgumentError

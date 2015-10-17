@@ -46,12 +46,7 @@ class SQLObject
   end
 
   def self.parse_all(results)
-    new_instances = []
-    species = results[0].include?("owner_id") ? Cat : Human
-    results.each do |entry|
-      new_instances << species.new(entry)
-    end
-    new_instances
+      results.map { |result| self.new(result) }
   end
 
   def self.find(id)
@@ -71,7 +66,7 @@ class SQLObject
   def initialize(params = {})
       params.each do |attr_name, value|
         attr_sym = attr_name.to_sym
-        raise "unknown attribute: '#{attr_name}'" unless self.class::columns.include?(attr_sym)
+        raise "unknown attribute '#{attr_name}'" unless self.class.columns.include?(attr_sym)
         send("#{attr_sym}=".to_sym, value)
     end
   end
@@ -85,15 +80,13 @@ class SQLObject
   end
 
   def insert
-    col_names = self.class.columns[1..-1].join(", ")
-    question_marks = []
-    insert_length = attribute_values.length
-    (insert_length-1).times { question_marks << "?" }
+    col_names = self.class.columns[1..-1]
+    question_marks = (["?"] * col_names.count).join(", ")
     DBConnection.execute(<<-SQL, *attribute_values[1..-1])
     INSERT INTO #{self.class.table_name}
-      (#{col_names})
+      (#{col_names.join(", ")})
     VALUES
-      (#{question_marks.join(", ")})
+      (#{question_marks})
     SQL
     self.id = DBConnection.last_insert_row_id
   end

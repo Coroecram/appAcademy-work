@@ -1,0 +1,3397 @@
+  [1m[36m (37.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20151015130604)
+  [1m[35m (0.4ms)[0m  BEGIN
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/Polls/db/migrate/20151015130604_create_users.rb:6)
+  [1m[36m (6.9ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "user_name" character varying NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX  "index_users_on_user_name" ON "users"  ("user_name")
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151015130604"]]
+  [1m[35m (0.8ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (6.3ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreatePoll (20151015130931)
+  [1m[35m (0.3ms)[0m  BEGIN
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/Polls/db/migrate/20151015130931_create_poll.rb:7)
+  [1m[36m (5.1ms)[0m  [1mCREATE TABLE "polls" ("id" serial primary key, "title" character varying NOT NULL, "author_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_polls_on_author_id" ON "polls"  ("author_id")
+  [1m[36mSQL (12.6ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151015130931"]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (6.5ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'polls'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (3.7ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateQuestion (20151015131127)
+  [1m[35m (0.2ms)[0m  BEGIN
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/Polls/db/migrate/20151015131127_create_question.rb:7)
+  [1m[36m (7.1ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "poll_id" integer NOT NULL, "question" character varying, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX  "index_questions_on_poll_id" ON "questions"  ("poll_id")
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151015131127"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (4.6ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'polls'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (5.3ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'questions'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (3.8ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateAnswerChoices (20151015140306)
+  [1m[35m (0.2ms)[0m  BEGIN
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/Polls/db/migrate/20151015140306_create_answer_choices.rb:7)
+  [1m[36m (303.6ms)[0m  [1mCREATE TABLE "answer_choices" ("id" serial primary key, "answer" text NOT NULL, "question_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.1ms)[0m  CREATE  INDEX  "index_answer_choices_on_question_id" ON "answer_choices"  ("question_id")
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20151015140306"]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (5.3ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'answer_choices'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (3.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'polls'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (3.6ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'questions'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (6.0ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to ChangeQuestionToText (20151015140704)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (52.0ms)[0m  [1mALTER TABLE "questions" ALTER COLUMN "question" TYPE text[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151015140704"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.3ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (4.6ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'answer_choices'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (4.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'polls'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (4.4ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'questions'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (3.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateResponse (20151015140915)
+  [1m[35m (0.2ms)[0m  BEGIN
+DEPRECATION WARNING: `#timestamps` was called without specifying an option for `null`. In Rails 5, this behavior will change to `null: false`. You should manually specify `null: true` to prevent the behavior of your existing migrations from changing. (called from block in change at /Users/appacademy/Desktop/w3d4/Polls/db/migrate/20151015140915_create_response.rb:7)
+  [1m[36m (5.9ms)[0m  [1mCREATE TABLE "responses" ("id" serial primary key, "answer_id" integer NOT NULL, "user_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_responses_on_user_id" ON "responses"  ("user_id")
+  [1m[36m (1.0ms)[0m  [1mCREATE  INDEX  "index_responses_on_answer_id" ON "responses"  ("answer_id")[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20151015140915"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.2ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (5.3ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'answer_choices'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (4.1ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'polls'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (4.0ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'questions'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (5.1ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'responses'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (5.7ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to RenamePollQuestionToTitle (20151015141256)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (25.8ms)[0m  [1mALTER TABLE "polls" RENAME COLUMN "question" TO "title"[0m
+PG::UndefinedColumn: ERROR:  column "question" does not exist
+: ALTER TABLE "polls" RENAME COLUMN "question" TO "title"
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mUser Load (38.3ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (15.9ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."user_name" = 'Pat' LIMIT 1[0m
+  [1m[35mSQL (8.5ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_name", "Pat"], ["created_at", "2015-10-15 14:41:18.202327"], ["updated_at", "2015-10-15 14:41:18.202327"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."user_name" = 'Mike' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_name", "Mike"], ["created_at", "2015-10-15 14:41:18.215334"], ["updated_at", "2015-10-15 14:41:18.215334"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (15.0ms)[0m  [1mINSERT INTO "polls" ("title", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Opinion on Something"], ["author_id", 1], ["created_at", "2015-10-15 14:41:18.228495"], ["updated_at", "2015-10-15 14:41:18.228495"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "polls" ("title", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["title", "Pick an Answer"], ["author_id", 2], ["created_at", "2015-10-15 14:41:18.246988"], ["updated_at", "2015-10-15 14:41:18.246988"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (20.4ms)[0m  [1mINSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["poll_id", 1], ["question", "What do you think about this?"], ["created_at", "2015-10-15 14:41:18.258078"], ["updated_at", "2015-10-15 14:41:18.258078"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["poll_id", 1], ["question", "What do you think about that?"], ["created_at", "2015-10-15 14:41:18.281447"], ["updated_at", "2015-10-15 14:41:18.281447"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["poll_id", 2], ["question", "What should be done?"], ["created_at", "2015-10-15 14:41:18.284229"], ["updated_at", "2015-10-15 14:41:18.284229"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["poll_id", 2], ["question", "Where did you put the thing?"], ["created_at", "2015-10-15 14:41:18.286377"], ["updated_at", "2015-10-15 14:41:18.286377"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (15.4ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Good idea"], ["question_id", 1], ["created_at", "2015-10-15 14:41:18.297175"], ["updated_at", "2015-10-15 14:41:18.297175"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Neutral idea"], ["question_id", 1], ["created_at", "2015-10-15 14:41:18.315333"], ["updated_at", "2015-10-15 14:41:18.315333"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Bad idea"], ["question_id", 1], ["created_at", "2015-10-15 14:41:18.317785"], ["updated_at", "2015-10-15 14:41:18.317785"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Good idea"], ["question_id", 2], ["created_at", "2015-10-15 14:41:18.319947"], ["updated_at", "2015-10-15 14:41:18.319947"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Neutral idea"], ["question_id", 2], ["created_at", "2015-10-15 14:41:18.322147"], ["updated_at", "2015-10-15 14:41:18.322147"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Bad idea"], ["question_id", 2], ["created_at", "2015-10-15 14:41:18.324193"], ["updated_at", "2015-10-15 14:41:18.324193"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Something"], ["question_id", 3], ["created_at", "2015-10-15 14:41:18.326401"], ["updated_at", "2015-10-15 14:41:18.326401"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Nothing"], ["question_id", 3], ["created_at", "2015-10-15 14:41:18.329020"], ["updated_at", "2015-10-15 14:41:18.329020"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "About what?"], ["question_id", 3], ["created_at", "2015-10-15 14:41:18.331444"], ["updated_at", "2015-10-15 14:41:18.331444"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Good place"], ["question_id", 4], ["created_at", "2015-10-15 14:41:18.333661"], ["updated_at", "2015-10-15 14:41:18.333661"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Neutral place"], ["question_id", 4], ["created_at", "2015-10-15 14:41:18.335796"], ["updated_at", "2015-10-15 14:41:18.335796"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Bad place"], ["question_id", 4], ["created_at", "2015-10-15 14:41:18.337965"], ["updated_at", "2015-10-15 14:41:18.337965"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (17.1ms)[0m  [1mINSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer_id", 1], ["user_id", 1], ["created_at", "2015-10-15 14:41:18.348233"], ["updated_at", "2015-10-15 14:41:18.348233"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer_id", 5], ["user_id", 1], ["created_at", "2015-10-15 14:41:18.367949"], ["updated_at", "2015-10-15 14:41:18.367949"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer_id", 7], ["user_id", 2], ["created_at", "2015-10-15 14:41:18.370618"], ["updated_at", "2015-10-15 14:41:18.370618"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer_id", 10], ["user_id", 2], ["created_at", "2015-10-15 14:41:18.372911"], ["updated_at", "2015-10-15 14:41:18.372911"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35mUser Load (1.0ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (0.8ms)[0m  SELECT "polls".* FROM "polls" WHERE "polls"."author_id" = $1  [["author_id", 1]]
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35mResponse Load (0.5ms)[0m  SELECT "responses".* FROM "responses" WHERE "responses"."user_id" = $1  [["user_id", 2]]
+  [1m[36mPoll Load (0.7ms)[0m  [1mSELECT  "polls".* FROM "polls"  ORDER BY "polls"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPoll Load (0.7ms)[0m  [1mSELECT  "polls".* FROM "polls"  ORDER BY "polls"."id" DESC LIMIT 1[0m
+  [1m[35mQuestion Load (0.5ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."poll_id" = $1  [["poll_id", 2]]
+  [1m[36mResponse Load (0.7ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.5ms)[0m  SELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mResponse Load (0.8ms)[0m  [1mSELECT  "responses".* FROM "responses"  ORDER BY "responses"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mAnswerChoice Load (0.7ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mAnswerChoice Load (0.9ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" DESC LIMIT 1[0m
+  [1m[35mResponse Load (0.5ms)[0m  SELECT "responses".* FROM "responses" WHERE "responses"."answer_id" = $1  [["answer_id", 12]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mQuestion Load (1.3ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mResponse Exists (9.2ms)[0m  [1mSELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1[0m  [["question_id", 1], ["user_id", 1]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mQuestion Load (0.7ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mResponse Exists (0.9ms)[0m  [1mSELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1[0m  [["question_id", 1], ["user_id", 2]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer_id", 1], ["user_id", 2], ["created_at", "2015-10-15 15:31:11.742043"], ["updated_at", "2015-10-15 15:31:11.742043"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[36m (327.8ms)[0m  [1mDROP DATABASE IF EXISTS "Polls_development"[0m
+  [1m[35m (227.6ms)[0m  DROP DATABASE IF EXISTS "Polls_test"
+  [1m[36m (395.4ms)[0m  [1mCREATE DATABASE "Polls_development" ENCODING = 'unicode'[0m
+  [1m[35m (239.2ms)[0m  CREATE DATABASE "Polls_test" ENCODING = 'unicode'
+  [1m[36mSQL (51.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (7.5ms)[0m  CREATE TABLE "answer_choices" ("id" serial primary key, "answer" text NOT NULL, "question_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.5ms)[0m  [1mCREATE  INDEX  "index_answer_choices_on_question_id" ON "answer_choices" USING btree ("question_id")[0m
+  [1m[35m (4.5ms)[0m  CREATE TABLE "polls" ("id" serial primary key, "title" character varying NOT NULL, "author_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.5ms)[0m  [1mCREATE  INDEX  "index_polls_on_author_id" ON "polls" USING btree ("author_id")[0m
+  [1m[35m (4.9ms)[0m  CREATE TABLE "questions" ("id" serial primary key, "poll_id" integer NOT NULL, "question" text, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.6ms)[0m  [1mCREATE  INDEX  "index_questions_on_poll_id" ON "questions" USING btree ("poll_id")[0m
+  [1m[35m (4.5ms)[0m  CREATE TABLE "responses" ("id" serial primary key, "answer_id" integer NOT NULL, "user_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.5ms)[0m  [1mCREATE  INDEX  "index_responses_on_answer_id" ON "responses" USING btree ("answer_id")[0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_responses_on_user_id" ON "responses" USING btree ("user_id")
+  [1m[36m (5.0ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "user_name" character varying NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX  "index_users_on_user_name" ON "users" USING btree ("user_name")
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.5ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015140915')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015130604')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015130931')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015131127')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015140306')
+  [1m[36m (0.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015140704')[0m
+  [1m[35mSQL (0.4ms)[0m  CREATE EXTENSION IF NOT EXISTS "plpgsql"
+  [1m[36m (8.5ms)[0m  [1mCREATE TABLE "answer_choices" ("id" serial primary key, "answer" text NOT NULL, "question_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.6ms)[0m  CREATE  INDEX  "index_answer_choices_on_question_id" ON "answer_choices" USING btree ("question_id")
+  [1m[36m (4.7ms)[0m  [1mCREATE TABLE "polls" ("id" serial primary key, "title" character varying NOT NULL, "author_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.5ms)[0m  CREATE  INDEX  "index_polls_on_author_id" ON "polls" USING btree ("author_id")
+  [1m[36m (4.6ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "poll_id" integer NOT NULL, "question" text, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.7ms)[0m  CREATE  INDEX  "index_questions_on_poll_id" ON "questions" USING btree ("poll_id")
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "responses" ("id" serial primary key, "answer_id" integer NOT NULL, "user_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_responses_on_answer_id" ON "responses" USING btree ("answer_id")
+  [1m[36m (1.2ms)[0m  [1mCREATE  INDEX  "index_responses_on_user_id" ON "responses" USING btree ("user_id")[0m
+  [1m[35m (6.7ms)[0m  CREATE TABLE "users" ("id" serial primary key, "user_name" character varying NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.3ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_user_name" ON "users" USING btree ("user_name")[0m
+  [1m[35m (2.9ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (1.5ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.6ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015140915')[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015130604')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015130931')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015131127')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015140306')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015140704')
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."user_name" = 'Pat' LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_name", "Pat"], ["created_at", "2015-10-15 15:36:02.824407"], ["updated_at", "2015-10-15 15:36:02.824407"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."user_name" = 'Mike' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_name", "Mike"], ["created_at", "2015-10-15 15:36:02.829308"], ["updated_at", "2015-10-15 15:36:02.829308"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "polls" ("title", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Opinion on Something"], ["author_id", 1], ["created_at", "2015-10-15 15:36:02.866278"], ["updated_at", "2015-10-15 15:36:02.866278"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "polls" ("title", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["title", "Pick an Answer"], ["author_id", 2], ["created_at", "2015-10-15 15:36:02.869627"], ["updated_at", "2015-10-15 15:36:02.869627"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["poll_id", 1], ["question", "What do you think about this?"], ["created_at", "2015-10-15 15:36:02.882385"], ["updated_at", "2015-10-15 15:36:02.882385"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["poll_id", 1], ["question", "What do you think about that?"], ["created_at", "2015-10-15 15:36:02.885566"], ["updated_at", "2015-10-15 15:36:02.885566"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["poll_id", 2], ["question", "What should be done?"], ["created_at", "2015-10-15 15:36:02.888029"], ["updated_at", "2015-10-15 15:36:02.888029"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["poll_id", 2], ["question", "Where did you put the thing?"], ["created_at", "2015-10-15 15:36:02.890356"], ["updated_at", "2015-10-15 15:36:02.890356"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Good idea"], ["question_id", 1], ["created_at", "2015-10-15 15:36:02.922314"], ["updated_at", "2015-10-15 15:36:02.922314"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Neutral idea"], ["question_id", 1], ["created_at", "2015-10-15 15:36:02.925276"], ["updated_at", "2015-10-15 15:36:02.925276"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Bad idea"], ["question_id", 1], ["created_at", "2015-10-15 15:36:02.927774"], ["updated_at", "2015-10-15 15:36:02.927774"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Good idea"], ["question_id", 2], ["created_at", "2015-10-15 15:36:02.930760"], ["updated_at", "2015-10-15 15:36:02.930760"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Neutral idea"], ["question_id", 2], ["created_at", "2015-10-15 15:36:02.933410"], ["updated_at", "2015-10-15 15:36:02.933410"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Bad idea"], ["question_id", 2], ["created_at", "2015-10-15 15:36:02.935705"], ["updated_at", "2015-10-15 15:36:02.935705"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Something"], ["question_id", 3], ["created_at", "2015-10-15 15:36:02.938114"], ["updated_at", "2015-10-15 15:36:02.938114"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Nothing"], ["question_id", 3], ["created_at", "2015-10-15 15:36:02.940208"], ["updated_at", "2015-10-15 15:36:02.940208"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "About what?"], ["question_id", 3], ["created_at", "2015-10-15 15:36:02.942240"], ["updated_at", "2015-10-15 15:36:02.942240"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Good place"], ["question_id", 4], ["created_at", "2015-10-15 15:36:02.944573"], ["updated_at", "2015-10-15 15:36:02.944573"]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Neutral place"], ["question_id", 4], ["created_at", "2015-10-15 15:36:02.947421"], ["updated_at", "2015-10-15 15:36:02.947421"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Bad place"], ["question_id", 4], ["created_at", "2015-10-15 15:36:02.950035"], ["updated_at", "2015-10-15 15:36:02.950035"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.7ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mResponse Exists (0.8ms)[0m  SELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1  [["question_id", 1], ["user_id", 2]]
+  [1m[36mAnswerChoice Load (0.3ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36m (114.2ms)[0m  [1mDROP DATABASE IF EXISTS "Polls_development"[0m
+  [1m[35m (113.5ms)[0m  DROP DATABASE IF EXISTS "Polls_test"
+  [1m[36m (244.8ms)[0m  [1mCREATE DATABASE "Polls_development" ENCODING = 'unicode'[0m
+  [1m[35m (273.7ms)[0m  CREATE DATABASE "Polls_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (8.4ms)[0m  CREATE TABLE "answer_choices" ("id" serial primary key, "answer" text NOT NULL, "question_id" integer, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.2ms)[0m  [1mCREATE  INDEX  "index_answer_choices_on_question_id" ON "answer_choices" USING btree ("question_id")[0m
+  [1m[35m (6.0ms)[0m  CREATE TABLE "polls" ("id" serial primary key, "title" character varying NOT NULL, "author_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.5ms)[0m  [1mCREATE  INDEX  "index_polls_on_author_id" ON "polls" USING btree ("author_id")[0m
+  [1m[35m (4.2ms)[0m  CREATE TABLE "questions" ("id" serial primary key, "poll_id" integer NOT NULL, "question" text, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.7ms)[0m  [1mCREATE  INDEX  "index_questions_on_poll_id" ON "questions" USING btree ("poll_id")[0m
+  [1m[35m (3.2ms)[0m  CREATE TABLE "responses" ("id" serial primary key, "answer_id" integer NOT NULL, "user_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.2ms)[0m  [1mCREATE  INDEX  "index_responses_on_answer_id" ON "responses" USING btree ("answer_id")[0m
+  [1m[35m (1.2ms)[0m  CREATE  INDEX  "index_responses_on_user_id" ON "responses" USING btree ("user_id")
+  [1m[36m (4.7ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "user_name" character varying NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX  "index_users_on_user_name" ON "users" USING btree ("user_name")
+  [1m[36m (3.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.5ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015140915')
+  [1m[36m (0.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015130604')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015130931')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015131127')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015140306')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015140704')[0m
+  [1m[35mSQL (0.4ms)[0m  CREATE EXTENSION IF NOT EXISTS "plpgsql"
+  [1m[36m (7.3ms)[0m  [1mCREATE TABLE "answer_choices" ("id" serial primary key, "answer" text NOT NULL, "question_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.8ms)[0m  CREATE  INDEX  "index_answer_choices_on_question_id" ON "answer_choices" USING btree ("question_id")
+  [1m[36m (4.7ms)[0m  [1mCREATE TABLE "polls" ("id" serial primary key, "title" character varying NOT NULL, "author_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.6ms)[0m  CREATE  INDEX  "index_polls_on_author_id" ON "polls" USING btree ("author_id")
+  [1m[36m (4.7ms)[0m  [1mCREATE TABLE "questions" ("id" serial primary key, "poll_id" integer NOT NULL, "question" text, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (1.7ms)[0m  CREATE  INDEX  "index_questions_on_poll_id" ON "questions" USING btree ("poll_id")
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "responses" ("id" serial primary key, "answer_id" integer NOT NULL, "user_id" integer NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (2.3ms)[0m  CREATE  INDEX  "index_responses_on_answer_id" ON "responses" USING btree ("answer_id")
+  [1m[36m (1.3ms)[0m  [1mCREATE  INDEX  "index_responses_on_user_id" ON "responses" USING btree ("user_id")[0m
+  [1m[35m (4.8ms)[0m  CREATE TABLE "users" ("id" serial primary key, "user_name" character varying NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (1.5ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_user_name" ON "users" USING btree ("user_name")[0m
+  [1m[35m (2.4ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (1.8ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.6ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (0.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015140915')[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015130604')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015130931')[0m
+  [1m[35m (0.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015131127')
+  [1m[36m (0.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20151015140306')[0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20151015140704')
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."user_name" = 'Pat' LIMIT 1[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_name", "Pat"], ["created_at", "2015-10-15 15:37:29.414850"], ["updated_at", "2015-10-15 15:37:29.414850"]]
+  [1m[36m (0.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."user_name" = 'Mike' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("user_name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["user_name", "Mike"], ["created_at", "2015-10-15 15:37:29.419761"], ["updated_at", "2015-10-15 15:37:29.419761"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "polls" ("title", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["title", "Opinion on Something"], ["author_id", 1], ["created_at", "2015-10-15 15:37:29.432903"], ["updated_at", "2015-10-15 15:37:29.432903"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "polls" ("title", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["title", "Pick an Answer"], ["author_id", 2], ["created_at", "2015-10-15 15:37:29.436010"], ["updated_at", "2015-10-15 15:37:29.436010"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["poll_id", 1], ["question", "What do you think about this?"], ["created_at", "2015-10-15 15:37:29.448348"], ["updated_at", "2015-10-15 15:37:29.448348"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["poll_id", 1], ["question", "What do you think about that?"], ["created_at", "2015-10-15 15:37:29.451384"], ["updated_at", "2015-10-15 15:37:29.451384"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["poll_id", 2], ["question", "What should be done?"], ["created_at", "2015-10-15 15:37:29.453677"], ["updated_at", "2015-10-15 15:37:29.453677"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["poll_id", 2], ["question", "Where did you put the thing?"], ["created_at", "2015-10-15 15:37:29.455765"], ["updated_at", "2015-10-15 15:37:29.455765"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Good idea"], ["question_id", 1], ["created_at", "2015-10-15 15:37:29.467069"], ["updated_at", "2015-10-15 15:37:29.467069"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Neutral idea"], ["question_id", 1], ["created_at", "2015-10-15 15:37:29.470584"], ["updated_at", "2015-10-15 15:37:29.470584"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Bad idea"], ["question_id", 1], ["created_at", "2015-10-15 15:37:29.473428"], ["updated_at", "2015-10-15 15:37:29.473428"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Good idea"], ["question_id", 2], ["created_at", "2015-10-15 15:37:29.476264"], ["updated_at", "2015-10-15 15:37:29.476264"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Neutral idea"], ["question_id", 2], ["created_at", "2015-10-15 15:37:29.478628"], ["updated_at", "2015-10-15 15:37:29.478628"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Bad idea"], ["question_id", 2], ["created_at", "2015-10-15 15:37:29.480974"], ["updated_at", "2015-10-15 15:37:29.480974"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Something"], ["question_id", 3], ["created_at", "2015-10-15 15:37:29.483380"], ["updated_at", "2015-10-15 15:37:29.483380"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Nothing"], ["question_id", 3], ["created_at", "2015-10-15 15:37:29.485509"], ["updated_at", "2015-10-15 15:37:29.485509"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "About what?"], ["question_id", 3], ["created_at", "2015-10-15 15:37:29.487560"], ["updated_at", "2015-10-15 15:37:29.487560"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Good place"], ["question_id", 4], ["created_at", "2015-10-15 15:37:29.489577"], ["updated_at", "2015-10-15 15:37:29.489577"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["answer", "Neutral place"], ["question_id", 4], ["created_at", "2015-10-15 15:37:29.491799"], ["updated_at", "2015-10-15 15:37:29.491799"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Bad place"], ["question_id", 4], ["created_at", "2015-10-15 15:37:29.494353"], ["updated_at", "2015-10-15 15:37:29.494353"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.6ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mResponse Exists (0.7ms)[0m  SELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1  [["question_id", 1], ["user_id", 2]]
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPoll Load (0.5ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer_id", 1], ["user_id", 2], ["created_at", "2015-10-15 15:37:29.540886"], ["updated_at", "2015-10-15 15:37:29.540886"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 5]]
+  [1m[35mResponse Exists (0.7ms)[0m  SELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1  [["question_id", 2], ["user_id", 2]]
+  [1m[36mAnswerChoice Load (0.2ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 5]]
+  [1m[35mQuestion Load (0.2ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mPoll Load (0.2ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer_id", 5], ["user_id", 2], ["created_at", "2015-10-15 15:37:29.550217"], ["updated_at", "2015-10-15 15:37:29.550217"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 7]]
+  [1m[35mResponse Exists (0.6ms)[0m  SELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1  [["question_id", 3], ["user_id", 1]]
+  [1m[36mAnswerChoice Load (0.3ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 7]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 3]]
+  [1m[36mPoll Load (0.3ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer_id", 7], ["user_id", 1], ["created_at", "2015-10-15 15:37:29.558502"], ["updated_at", "2015-10-15 15:37:29.558502"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 10]]
+  [1m[35mResponse Exists (0.5ms)[0m  SELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1  [["question_id", 4], ["user_id", 1]]
+  [1m[36mAnswerChoice Load (0.3ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 10]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mPoll Load (0.3ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer_id", 10], ["user_id", 1], ["created_at", "2015-10-15 15:37:29.567198"], ["updated_at", "2015-10-15 15:37:29.567198"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[36mPoll Load (1.1ms)[0m  [1mSELECT "polls".* FROM "polls"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.9ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mResponse Exists (0.9ms)[0m  SELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1  [["question_id", 1], ["user_id", 1]]
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPoll Load (0.3ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mQuestion Load (1.1ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.6ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36m (1.0ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_id" = $1[0m  [["answer_id", 1]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_id" = $1  [["answer_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_id" = $1[0m  [["answer_id", 3]]
+  [1m[35mQuestion Load (0.6ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.3ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_id" = $1  [["answer_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mSELECT COUNT(*) FROM "responses" WHERE "responses"."answer_id" = $1[0m  [["answer_id", 2]]
+  [1m[35m (0.4ms)[0m  SELECT COUNT(*) FROM "responses" WHERE "responses"."answer_id" = $1  [["answer_id", 3]]
+  [1m[36mQuestion Load (0.4ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.3ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mResponse Load (10.0ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."answer_id" IN (1, 2, 3)[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.4ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.6ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (1.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+PG::UndefinedColumn: ERROR:  column answer_responses.answer does not exist
+LINE 2:       answer_choices.*, COUNT(answer_responses.answer)
+                                      ^
+:     SELECT
+      answer_choices.*, COUNT(answer_responses.answer)
+    FROM
+      answer_choices
+    LEFT OUTER JOIN
+      responses AS answer_responses
+      ON answer_responses.answer_id = answer_choices.id
+    GROUP BY
+      answer_choices.answer
+
+  [1m[36mQuestion Load (0.6ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+PG::GroupingError: ERROR:  column "answer_choices.id" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 2:       answer_choices.*, COUNT(answer_responses.*)
+              ^
+:     SELECT
+      answer_choices.*, COUNT(answer_responses.*)
+    FROM
+      answer_choices
+    LEFT OUTER JOIN
+      responses AS answer_responses
+      ON answer_responses.answer_id = answer_choices.id
+    GROUP BY
+      answer_choices.answer
+
+  [1m[35mQuestion Load (0.5ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mQuestion Load (0.4ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+PG::SyntaxError: ERROR:  syntax error at or near "GROUP"
+LINE 10:     GROUP BY
+             ^
+:     SELECT
+      answer_choices.*, COUNT(answer_responses.*)
+    FROM
+      answer_choices
+    LEFT OUTER JOIN
+      responses AS answer_responses
+      ON answer_responses.answer_id = answer_choices.id
+    WHERE
+      answer_choices.question_id = ?
+    GROUP BY
+      answer_choices.id
+
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (15.6ms)[0m  [1m    SELECT
+      answer_choices.*, COUNT(answer_responses.*)
+    FROM
+      answer_choices
+    LEFT OUTER JOIN
+      responses AS answer_responses
+      ON answer_responses.answer_id = answer_choices.id
+    WHERE
+      answer_choices.question_id = 1
+    GROUP BY
+      answer_choices.id
+[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (1.4ms)[0m  [1m    SELECT
+      answer_choices.answer, COUNT(answer_responses.*)
+    FROM
+      answer_choices
+    LEFT OUTER JOIN
+      responses AS answer_responses
+      ON answer_responses.answer_id = answer_choices.id
+    WHERE
+      answer_choices.question_id = 1
+    GROUP BY
+      answer_choices.id
+[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.8ms)[0m  [1m    SELECT
+      answer_choices.*, COUNT(answer_responses.*)
+    FROM
+      answer_choices
+    LEFT OUTER JOIN
+      responses AS answer_responses
+      ON answer_responses.answer_id = answer_choices.id
+    WHERE
+      answer_choices.question_id = 1
+    GROUP BY
+      answer_choices.id
+[0m
+  [1m[35mQuestion Load (0.8ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (1.0ms)[0m  [1m    SELECT
+      answer_choices.*, COUNT(answer_responses.*)
+    FROM
+      answer_choices
+    LEFT OUTER JOIN
+      responses AS answer_responses
+      ON answer_responses.answer_id = answer_choices.id
+    WHERE
+      answer_choices.question_id = 1
+    GROUP BY
+      answer_choices.id
+[0m
+  [1m[35mQuestion Load (0.5ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.9ms)[0m  [1m    SELECT
+      answer_choices.*, COUNT(answer_responses.*) AS num_response
+    FROM
+      answer_choices
+    LEFT OUTER JOIN
+      responses AS answer_responses
+      ON answer_responses.answer_id = answer_choices.id
+    WHERE
+      answer_choices.question_id = 1
+    GROUP BY
+      answer_choices.id
+[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (1.0ms)[0m  [1m      SELECT
+        answer_choices.*, COUNT(answer_responses.*) AS num_response
+      FROM
+        answer_choices
+      LEFT OUTER JOIN
+        responses AS answer_responses
+        ON answer_responses.answer_id = answer_choices.id
+      WHERE
+        answer_choices.question_id = 1
+      GROUP BY
+        answer_choices.id
+[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[36mQuestion Load (1.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.8ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.4ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.5ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (1.1ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.5ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.3ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.4ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.3ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.4ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.4ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35m (0.9ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT 1 FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mAnswerChoice Load (0.6ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.4ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.4ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.7ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.3ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.3ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mAnswerChoice Load (0.7ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices"  ORDER BY "answer_choices"."id" ASC LIMIT 1[0m
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.7ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.7ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.5ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.7ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.6ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mAnswerChoice Load (0.5ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35m (0.8ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35m (0.8ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.6ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35m (0.7ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.8ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35m (1.0ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mAnswerChoice Load (0.5ms)[0m  [1mSELECT 1 FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mAnswerChoice Load (0.6ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35m (0.5ms)[0m  SELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mAnswerChoice Load (0.6ms)[0m  [1mSELECT 1 FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.7ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mAnswerChoice Load (0.5ms)[0m  SELECT 1 FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.8ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+  [1m[36m (0.4ms)[0m  [1mSELECT COUNT(*) FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1[0m  [["question_id", 1]]
+  [1m[35mQuestion Load (0.7ms)[0m  SELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "responses"
+LINE 1: SELECT answer_choices.*, count(responses.*) FROM "answer_cho...
+                                       ^
+: SELECT answer_choices.*, count(responses.*) FROM "answer_choices" WHERE "answer_choices"."question_id" = $1
+  [1m[36mQuestion Load (0.6ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.4ms)[0m  SELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" = $1  [["question_id", 1]]
+  [1m[36mQuestion Load (0.6ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.7ms)[0m  SELECT answer_choices.*, count(responses.*) FROM "answer_choices" LEFT OUTER JOIN responses ON responses.answer_id =
+                    answer_choices.id WHERE "answer_choices"."question_id" = $1 GROUP BY answer_choices.id  [["question_id", 1]]
+  [1m[36mQuestion Load (0.7ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.9ms)[0m  SELECT answer_choices.*, count(responses.*) AS response_count FROM "answer_choices" LEFT OUTER JOIN responses ON responses.answer_id =
+                    answer_choices.id WHERE "answer_choices"."question_id" = $1 GROUP BY answer_choices.id  [["question_id", 1]]
+  [1m[36mQuestion Load (1.0ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.7ms)[0m  SELECT answer_choices.*, count(responses.*) AS response_count FROM "answer_choices" LEFT OUTER JOIN responses ON responses.answer_id =
+                    answer_choices.id WHERE "answer_choices"."question_id" = $1 GROUP BY answer_choices.id  [["question_id", 1]]
+  [1m[36mQuestion Load (1.2ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.7ms)[0m  SELECT answer_choices.*, count(responses.*) AS response_count FROM "answer_choices" LEFT OUTER JOIN responses
+                ON responses.answer_id = answer_choices.id WHERE "answer_choices"."question_id" = $1 GROUP BY answer_choices.id  [["question_id", 1]]
+  [1m[36mQuestion Load (0.8ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.8ms)[0m  SELECT answer_choices.*, count(responses.*) AS response_count FROM "answer_choices" LEFT OUTER JOIN responses
+                ON responses.answer_id = answer_choices.id WHERE "answer_choices"."question_id" = $1 GROUP BY answer_choices.id  [["question_id", 1]]
+  [1m[36mQuestion Load (0.5ms)[0m  [1mSELECT  "questions".* FROM "questions"  ORDER BY "questions"."id" ASC LIMIT 1[0m
+  [1m[35mAnswerChoice Load (0.7ms)[0m  SELECT answer_choices.*, count(responses.*) AS response_count FROM "answer_choices" LEFT OUTER JOIN responses
+                ON responses.answer_id = answer_choices.id WHERE "answer_choices"."question_id" = $1 GROUP BY answer_choices.id  [["question_id", 1]]
+  [1m[36mUser Load (37.7ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (13.3ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN(
+        questions
+      ) AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near ")"
+LINE 7:       ) AS qs
+              ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN(
+        questions
+      ) AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+
+  [1m[35mUser Load (1.1ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (13.9ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      INNER JOIN(
+        questions
+      ) AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near ")"
+LINE 7:       ) AS qs
+              ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      INNER JOIN(
+        questions
+      ) AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.9ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near "GROUP"
+LINE 17:       GROUP BY
+               ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (17.9ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN(
+        questions
+      ) AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near ")"
+LINE 7:       ) AS qs
+              ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN(
+        questions
+      ) AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (14.5ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN(
+        questions
+      ) AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near ")"
+LINE 7:       ) AS qs
+              ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN(
+        questions
+      ) AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (14.5ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN(
+        questions
+      )
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near ")"
+LINE 7:       )
+              ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN(
+        questions
+      )
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.7ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near "GROUP"
+LINE 17:       GROUP BY
+               ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.7ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+[0m
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 22: 
+         ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.7ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+[0m
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 21: 
+         ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.7ms)[0m  [1m      SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near "GROUP"
+LINE 17:       GROUP BY
+               ^
+:       SELECT
+        polls.title
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.7ms)[0m  [1m      SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+[0m
+PG::SyntaxError: ERROR:  syntax error at or near "GROUP"
+LINE 17:       GROUP BY
+               ^
+:       SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.8ms)[0m  [1m      SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+[0m
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 21: 
+         ^
+:       SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.6ms)[0m  [1m      SELECT
+        polls.*
+      FROM
+        polls
+      -- JOIN
+      --   questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.7ms)[0m  [1m      SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+[0m
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 21: 
+         ^
+:       SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (2.0ms)[0m  [1m      SELECT
+        polls.*
+      FROM
+        polls
+      INNER JOIN
+        questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+[0m
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 21: 
+         ^
+:       SELECT
+        polls.*
+      FROM
+        polls
+      INNER JOIN
+        questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (2.0ms)[0m  [1m      SELECT
+        *
+      FROM
+        polls
+      INNER JOIN
+        questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+[0m
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 21: 
+         ^
+:       SELECT
+        *
+      FROM
+        polls
+      INNER JOIN
+        questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.7ms)[0m  [1m      SELECT
+        polls.*
+      FROM
+        polls
+        INNER JOIN
+          questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+[0m
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 21: 
+         ^
+:       SELECT
+        polls.*
+      FROM
+        polls
+        INNER JOIN
+          questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (1.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.6ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+        INNER JOIN
+          questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 21: 
+         ^
+:       SELECT
+        polls.*
+      FROM
+        polls
+        INNER JOIN
+          questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (0.7ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 21: 
+         ^
+:       SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      -- AS qs
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (41.6ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON questions.poll_id = polls.id
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+PG::UndefinedTable: ERROR:  invalid reference to FROM-clause entry for table "questions"
+LINE 8:       ON questions.poll_id = polls.id
+                 ^
+HINT:  Perhaps you meant to reference the table alias "qs".
+:       SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON questions.poll_id = polls.id
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.0ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     user_id = 1
+      -- ) AS ur
+      -- ON qs.poll_id = polls.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (40.8ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.4ms)[0m        SELECT
+        polls.*, COUNT(qs.*) AS countqs, COUNT(ur.*) AS countur
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.7ms)[0m        SELECT
+        polls.*, COUNT(qs.*) AS countqs, COUNT(ur.*) AS countur
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.4ms)[0m        SELECT
+        polls.*, COUNT(qs.*) AS countqs, COUNT(ur.*) AS countur
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.0ms)[0m        SELECT
+        polls.*, COUNT(qs.*) AS countqs, COUNT(ur.*) AS countur
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.1ms)[0m        SELECT
+        polls.*, COUNT(qs.*) AS countqs, COUNT(ur.*) AS countur
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.5ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.2ms)[0m        SELECT
+        polls.*, COUNT(qs.*) AS countqs, COUNT(ur.*) AS countur
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.0ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.0ms)[0m        SELECT
+        COUNT(ur.*)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.2ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.0ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.1ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.id) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.1ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.id) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.1ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.0ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.0ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON qs.poll_id = polls.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.id) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (42.6ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35mPoll Load (1.9ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 2
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (46.7ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     responses.user_id = 1
+      -- ) AS ur
+      -- ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "ur"
+LINE 24:         COUNT(qs.*) = COUNT(ur.id)
+                                     ^
+:       SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     responses.user_id = 1
+      -- ) AS ur
+      -- ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.3ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      -- LEFT OUTER JOIN(
+      --   SELECT
+      --     responses.*
+      --   FROM
+      --     responses
+      --   WHERE
+      --     responses.user_id = 1
+      -- ) AS ur
+      -- ON ur.answer_id = answer_choices.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (0.9ms)[0m        SELECT
+        polls.id
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      -- ON ur.answer_id = answer_choices.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.id)
+
+PG::SyntaxError: ERROR:  syntax error at end of input
+LINE 25: 
+         ^
+:       SELECT
+        polls.id
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      -- ON ur.answer_id = answer_choices.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.1ms)[0m        SELECT
+        polls.id
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      -- GROUP BY
+      --   polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.2ms)[0m        SELECT
+        polls.id
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      -- HAVING
+      --   COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.2ms)[0m        SELECT
+        polls.id
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.4ms)[0m        SELECT
+        polls.id, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.5ms)[0m        SELECT
+        polls.id, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs) = COUNT(ur)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (84.0ms)[0m        SELECT
+        polls.id, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.*
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+PG::GroupingError: ERROR:  column "polls.id" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 2:         polls.id, COUNT(qs.*), COUNT(ur.id)
+                ^
+:       SELECT
+        polls.id, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.*
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.0ms)[0m        SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.*
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+PG::GroupingError: ERROR:  column "polls.id" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 2:         polls.*, COUNT(qs.*), COUNT(ur.id)
+                ^
+:       SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.*
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.3ms)[0m        SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (2.1ms)[0m        SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (0.8ms)[0m        SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      WHERE
+        COUNT(qs.*) = COUNT(ur.id)
+
+PG::SyntaxError: ERROR:  syntax error at or near "WHERE"
+LINE 23:       WHERE
+               ^
+:       SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      WHERE
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.4ms)[0m        SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.7ms)[0m        SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) != COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (40.5ms)[0m        SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+PG::SyntaxError: ERROR:  syntax error at or near "WHERE"
+LINE 14:         WHERE
+                 ^
+:       SELECT
+        polls.*, COUNT(qs.*), COUNT(ur.id)
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      ON qs.id = answer_choices.question_id
+      LEFT OUTER JOIN(
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = answer_choices.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.3ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      AS ac
+      ON qs.id = ac.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = ac.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.5ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      AS ac
+      ON qs.id = ac.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = ac.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.user_id)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (2.0ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      AS ac
+      ON qs.id = ac.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = ac.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (82.3ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      AS ac
+      ON qs.id = ac.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = ac.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(distinct qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35mPoll Load (2.1ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      AS ac
+      ON qs.id = ac.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 2
+      ) AS ur
+      ON ur.answer_id = ac.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(distinct qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (2.2ms)[0m        SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      AS ac
+      ON qs.id = ac.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = ac.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(distinct qs.*) = COUNT(distinct ur.*)
+
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.8ms)[0m        SELECT
+        polls.id
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      AS ac
+      ON qs.id = ac.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = ac.id
+      GROUP BY
+        polls.id
+      -- HAVING
+      --   COUNT(distinct qs.*) = COUNT(ur.*)
+
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.2ms)[0m  [1mSELECT polls.* FROM "polls"[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (9.1ms)[0m  [1mSELECT polls.* FROM "polls" questions AS qs ON qs.poll_id = polls.id answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses.*
+                        FROM responses AS ur
+                        ON ur.answer_id = ac.id WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct qs.*) = COUNT(ur.*)[0m
+PG::SyntaxError: ERROR:  syntax error at or near "AS"
+LINE 1: SELECT polls.* FROM "polls" questions AS qs ON qs.poll_id = ...
+                                              ^
+: SELECT polls.* FROM "polls" questions AS qs ON qs.poll_id = polls.id answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses.*
+                        FROM responses AS ur
+                        ON ur.answer_id = ac.id WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct qs.*) = COUNT(ur.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.7ms)[0m  [1mSELECT polls.* FROM "polls" questions ON questions.poll_id = polls.id answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses.*
+                        FROM responses AS ur
+                        ON ur.answer_id = ac.id WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)[0m
+PG::SyntaxError: ERROR:  syntax error at or near "ON"
+LINE 1: SELECT polls.* FROM "polls" questions ON questions.poll_id =...
+                                              ^
+: SELECT polls.* FROM "polls" questions ON questions.poll_id = polls.id answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses.*
+                        FROM responses AS ur
+                        ON ur.answer_id = ac.id WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.6ms)[0m  [1mSELECT polls.* FROM "polls" questions AS qs ON qs.poll_id = polls.id[0m
+PG::SyntaxError: ERROR:  syntax error at or near "AS"
+LINE 1: SELECT polls.* FROM "polls" questions AS qs ON qs.poll_id = ...
+                                              ^
+: SELECT polls.* FROM "polls" questions AS qs ON qs.poll_id = polls.id
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.5ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.5ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id answer_choices AS ac ON qs.id = ac.question_id[0m
+PG::SyntaxError: ERROR:  syntax error at or near "answer_choices"
+LINE 1: ...ls" JOIN questions AS qs ON qs.poll_id = polls.id answer_cho...
+                                                             ^
+: SELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id answer_choices AS ac ON qs.id = ac.question_id
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.9ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.6ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses.*
+                        FROM responses AS ur
+                        ON ur.answer_id = ac.id[0m
+PG::SyntaxError: ERROR:  syntax error at or near "FROM"
+LINE 2:                         FROM responses AS ur
+                                ^
+: SELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses.*
+                        FROM responses AS ur
+                        ON ur.answer_id = ac.id
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (7.5ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses.*
+                        AS ur ON ur.answer_id = ac.id[0m
+PG::SyntaxError: ERROR:  syntax error at or near "AS"
+LINE 2:                         AS ur ON ur.answer_id = ac.id
+                                ^
+: SELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses.*
+                        AS ur ON ur.answer_id = ac.id
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.1ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses
+                        AS ur ON ur.answer_id = ac.id[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (11.7ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses
+                        AS ur ON ur.answer_id = ac.id WHERE (responses.user_id = 1)[0m
+PG::UndefinedTable: ERROR:  invalid reference to FROM-clause entry for table "responses"
+LINE 2: ...             AS ur ON ur.answer_id = ac.id WHERE (responses....
+                                                             ^
+HINT:  Perhaps you meant to reference the table alias "ur".
+: SELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses
+                        AS ur ON ur.answer_id = ac.id WHERE (responses.user_id = 1)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.6ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN SELECT responses.*
+                        FROM responses AS ur
+                        ON ur.answer_id = ac.id WHERE (responses.user_id = 1)[0m
+PG::SyntaxError: ERROR:  syntax error at or near "SELECT"
+LINE 1: ...s AS ac ON qs.id = ac.question_id LEFT OUTER JOIN SELECT res...
+                                                             ^
+: SELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN SELECT responses.*
+                        FROM responses AS ur
+                        ON ur.answer_id = ac.id WHERE (responses.user_id = 1)
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (5.4ms)[0m  [1mSELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses AS ur
+                        ON ur.answer_id = ac.id WHERE (responses.user_id = 1)[0m
+PG::UndefinedTable: ERROR:  invalid reference to FROM-clause entry for table "responses"
+LINE 2: ...                   ON ur.answer_id = ac.id WHERE (responses....
+                                                             ^
+HINT:  Perhaps you meant to reference the table alias "ur".
+: SELECT polls.* FROM "polls" JOIN questions AS qs ON qs.poll_id = polls.id JOIN answer_choices AS ac ON qs.id = ac.question_id LEFT OUTER JOIN responses AS ur
+                        ON ur.answer_id = ac.id WHERE (responses.user_id = 1)
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.5ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id"[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.1ms)[0m  SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" INNER JOIN "responses" ON "responses"."answer_id" = "answer_choices"."id"
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.9ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id"[0m
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (43.1ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = ac.id[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "ac"
+LINE 3:                         AS ur ON ur.answer_id = ac.id
+                                                        ^
+: SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = ac.id
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.3ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.0ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (responses.user_id = 1)[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "responses"
+LINE 3: ... AS ur ON ur.answer_id = answer_choices.id WHERE (responses....
+                                                             ^
+: SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (responses.user_id = 1)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.0ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (ur.user_id = 1)[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.5ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (ur.user_id = 1) GROUP BY polls.id[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.0ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (ur.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct qs.*) = COUNT(ur.*)[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "qs"
+LINE 3: ...r_id = 1) GROUP BY polls.id HAVING COUNT(distinct qs.*) = CO...
+                                                             ^
+: SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (ur.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct qs.*) = COUNT(ur.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.3ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (ur.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.8ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mResponse Exists (0.6ms)[0m  SELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1  [["question_id", 1], ["user_id", 1]]
+  [1m[36mAnswerChoice Load (0.3ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mQuestion Load (0.4ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPoll Load (0.3ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "polls" ("title", "author_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["title", "Magic"], ["author_id", 2], ["created_at", "2015-10-15 20:06:15.960410"], ["updated_at", "2015-10-15 20:06:15.960410"]]
+  [1m[36m (44.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["poll_id", 3], ["question", "Do you believe in it?"], ["created_at", "2015-10-15 20:06:40.247823"], ["updated_at", "2015-10-15 20:06:40.247823"]]
+  [1m[35m (5.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "No"], ["question_id", 5], ["created_at", "2015-10-15 20:07:04.079002"], ["updated_at", "2015-10-15 20:07:04.079002"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mQuestion Load (0.8ms)[0m  [1mSELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 13]]
+  [1m[35mResponse Exists (1.0ms)[0m  SELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1  [["question_id", 5], ["user_id", 1]]
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT  "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."id" = $1 LIMIT 1[0m  [["id", 13]]
+  [1m[35mQuestion Load (0.3ms)[0m  SELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT 1  [["id", 5]]
+  [1m[36mPoll Load (0.3ms)[0m  [1mSELECT  "polls".* FROM "polls" WHERE "polls"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "responses" ("answer_id", "user_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer_id", 13], ["user_id", 1], ["created_at", "2015-10-15 20:07:23.320106"], ["updated_at", "2015-10-15 20:07:23.320106"]]
+  [1m[36m (3.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.7ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (ur.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "questions" ("poll_id", "question", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["poll_id", 3], ["question", "Have you answered this question?"], ["created_at", "2015-10-15 20:08:10.739137"], ["updated_at", "2015-10-15 20:08:10.739137"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "answer_choices" ("answer", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["answer", "Why?!"], ["question_id", 6], ["created_at", "2015-10-15 20:08:41.377897"], ["updated_at", "2015-10-15 20:08:41.377897"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.4ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        AS ur ON ur.answer_id = answer_choices.id WHERE (ur.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)[0m
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.9ms)[0m  [1m      SELECT
+        polls.*
+      FROM
+        polls
+      JOIN
+        questions
+      AS qs
+      ON qs.poll_id = polls.id
+      JOIN
+        answer_choices
+      AS ac
+      ON qs.id = ac.question_id
+      LEFT OUTER JOIN(
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON ur.answer_id = ac.id
+      GROUP BY
+        polls.id
+      HAVING
+        COUNT(distinct qs.*) = COUNT(ur.*)
+[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (12.8ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        ON responses.answer_id = answer_choices.id WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)[0m
+PG::SyntaxError: ERROR:  subquery in FROM must have an alias
+LINE 1: ...."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT re...
+                                                             ^
+HINT:  For example, FROM (SELECT ...) [AS] foo.
+: SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (SELECT responses.*
+                        FROM responses)
+                        ON responses.answer_id = answer_choices.id WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (15.0ms)[0m  [1mSELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "responses"
+LINE 1: ..._choices"."question_id" = "questions"."id" WHERE (responses....
+                                                             ^
+: SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (16.8ms)[0m  [1mSELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "responses"
+LINE 1: SELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GR...
+                                           ^
+: SELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.7ms)[0m  [1mSELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "responses"
+LINE 1: SELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GR...
+                                           ^
+: SELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (7.7ms)[0m  [1mSELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "responses"
+LINE 1: SELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GR...
+                                           ^
+: SELECT polls.* FROM "polls" WHERE (responses.user_id = 1) GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (16.8ms)[0m  [1mSELECT polls.* FROM "polls" WHERE "polls"."user_id" = 1 GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)[0m
+PG::UndefinedColumn: ERROR:  column polls.user_id does not exist
+LINE 1: SELECT polls.* FROM "polls" WHERE "polls"."user_id" = 1 GROU...
+                                          ^
+: SELECT polls.* FROM "polls" WHERE "polls"."user_id" = 1 GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mResponse Load (0.4ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (0.3ms)[0m  [1mSELECT polls.* FROM "polls"[0m
+  [1m[35mQuestion Load (0.5ms)[0m  SELECT "questions".* FROM "questions" WHERE "questions"."poll_id" IN (1, 2, 3)
+  [1m[36mAnswerChoice Load (0.4ms)[0m  [1mSELECT "answer_choices".* FROM "answer_choices" WHERE "answer_choices"."question_id" IN (1, 2, 3, 4, 5, 6)[0m
+  [1m[35mResponse Load (0.6ms)[0m  SELECT "responses".* FROM "responses" WHERE "responses"."answer_id" IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mResponse Load (0.4ms)[0m  SELECT "responses".* FROM "responses" WHERE "responses"."user_id" = $1  [["user_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mResponse Load (0.4ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mResponse Load (0.3ms)[0m  [1mSELECT "responses".* FROM "responses" WHERE "responses"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mResponse Load (26.0ms)[0m  [1mSELECT polls.* FROM "responses" WHERE "responses"."user_id" = 1[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "polls"
+LINE 1: SELECT polls.* FROM "responses" WHERE "responses"."user_id" ...
+               ^
+: SELECT polls.* FROM "responses" WHERE "responses"."user_id" = 1
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mResponse Load (12.8ms)[0m  [1mSELECT polls.* FROM "responses" WHERE "responses"."user_id" = 1 GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "polls"
+LINE 1: SELECT polls.* FROM "responses" WHERE "responses"."user_id" ...
+               ^
+: SELECT polls.* FROM "responses" WHERE "responses"."user_id" = 1 GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mResponse Load (0.6ms)[0m  [1mSELECT polls.* FROM "responses"[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "polls"
+LINE 1: SELECT polls.* FROM "responses"
+               ^
+: SELECT polls.* FROM "responses"
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mResponse Load (0.8ms)[0m  [1mSELECT polls.* FROM "responses" WHERE "responses"."user_id" = 1 GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)[0m
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "polls"
+LINE 1: SELECT polls.* FROM "responses" WHERE "responses"."user_id" ...
+               ^
+: SELECT polls.* FROM "responses" WHERE "responses"."user_id" = 1 GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mResponse Load (1.7ms)[0m  [1mSELECT polls.* FROM "responses" INNER JOIN "answer_choices" ON "answer_choices"."id" = "responses"."answer_id" INNER JOIN "questions" ON "questions"."id" = "answer_choices"."question_id" INNER JOIN "polls" ON "polls"."id" = "questions"."poll_id" WHERE "responses"."user_id" = 1 GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.8ms)[0m  SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" INNER JOIN "responses" ON "responses"."answer_id" = "answer_choices"."id" WHERE "responses"."user_id" = 1 GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (0.8ms)[0m  SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (
+                                  SELECT responses.*
+                                  FROM responses
+                                  WHERE
+                                    responses.user_id = 1 )
+                                  AS ur
+
+                          ON ur.answer_id = answer_choices.id GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+PG::UndefinedTable: ERROR:  missing FROM-clause entry for table "responses"
+LINE 8: ...lls.id HAVING COUNT(distinct questions.*) = COUNT(responses....
+                                                             ^
+: SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (
+                                  SELECT responses.*
+                                  FROM responses
+                                  WHERE
+                                    responses.user_id = 1 )
+                                  AS ur
+
+                          ON ur.answer_id = answer_choices.id GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(responses.*)
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (2.2ms)[0m  SELECT polls.* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (
+                                  SELECT responses.*
+                                  FROM responses
+                                  WHERE
+                                    responses.user_id = 1 )
+                                  AS ur
+
+                          ON ur.answer_id = answer_choices.id GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (2.2ms)[0m  SELECT "polls".* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (
+        SELECT
+          responses.*
+        FROM
+          responses
+        WHERE
+          responses.user_id = 1
+      ) AS ur
+      ON
+        ur.answer_id = answer_choices.id GROUP BY polls.id HAVING COUNT(distinct questions.*) = COUNT(ur.*)
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.9ms)[0m  SELECT "polls".* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (
+        SELECT "responses".* FROM "responses" WHERE "responses"."user_id" = 1
+      ) AS user_responses
+      ON
+        user_responses.answer_id = answer_choices.id GROUP BY polls.id HAVING COUNT(DISTINCT questions.*) = COUNT(user_responses.*)
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPoll Load (1.3ms)[0m  [1mSELECT "polls".* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (
+        SELECT "responses".* FROM "responses" WHERE "responses"."user_id" = 1
+      ) AS user_responses
+      ON
+        user_responses.answer_id = answer_choices.id GROUP BY polls.id HAVING COUNT(DISTINCT questions.*) != COUNT(user_responses.*)[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPoll Load (1.5ms)[0m  SELECT "polls".* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" LEFT OUTER JOIN (
+        SELECT "responses".* FROM "responses" WHERE "responses"."user_id" = 1
+      ) AS user_responses
+      ON
+        user_responses.answer_id = answer_choices.id GROUP BY polls.id HAVING COUNT(DISTINCT questions.*) != COUNT(user_responses.*)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mQuestion Load (0.7ms)[0m  SELECT  "questions".* FROM "questions" INNER JOIN "answer_choices" ON "questions"."id" = "answer_choices"."question_id" WHERE "answer_choices"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mResponse Exists (0.8ms)[0m  [1mSELECT  1 AS one FROM "responses" INNER JOIN "answer_choices" ON "responses"."answer_id" = "answer_choices"."id" WHERE "answer_choices"."question_id" = $1 AND (responses.id IS NOT NULL) AND "responses"."user_id" = $2 LIMIT 1[0m  [["question_id", 1], ["user_id", 1]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mPoll Load (1.6ms)[0m  [1mSELECT "polls".* FROM "polls" INNER JOIN "questions" ON "questions"."poll_id" = "polls"."id" INNER JOIN "answer_choices" ON "answer_choices"."question_id" = "questions"."id" INNER JOIN "responses" ON "responses"."answer_id" = "answer_choices"."id"[0m

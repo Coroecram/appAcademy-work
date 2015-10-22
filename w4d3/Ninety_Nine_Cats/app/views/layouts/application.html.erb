@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NinetyNineCats</title>
+</head>
+<body>
+
+<% if current_user %>
+  <%= "Current User: #{current_user.username}" %>
+
+  <form action="<%= session_url %>" method="POST" >
+    <input type="hidden" name="_method" value="Delete">
+    <input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>">
+
+    <button>Log Out</button>
+  </form>
+
+<% else %>
+  <form action="<%= new_session_url %>" method="GET">
+
+    <button>Log In</button>
+  </form>
+  <form action="<%= new_user_url %>" method="GET" >
+    <button>Create New Account</button>
+  </form>
+
+<% end %>
+
+
+
+<%= yield %>
+
+</body>
+</html>

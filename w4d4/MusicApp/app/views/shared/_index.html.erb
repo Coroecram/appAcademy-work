@@ -1,0 +1,9 @@
+<%content_for :title do%>
+: <%=model.table_name.capitalize%><%end%>
+
+<h1> <%= model.table_name.capitalize %> </h1>
+
+<% model.each do |instance|%>
+
+  <h4><%= instance.title %></h4>
+<%end%>

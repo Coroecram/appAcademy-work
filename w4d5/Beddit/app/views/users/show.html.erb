@@ -1,0 +1,4 @@
+  <h1>User Profile</h1>
+username: <%= current_user.username %>
+<br><br><br>
+<%= button_to "Edit account", edit_user_url(current_user), method: :get %>

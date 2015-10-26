@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Beddit</title>
+
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+
+<footer>
+  <% if logged_in? %>
+    <p>Logged in as: <%= current_user.username %> </p>
+    <%= button_to "Logout", session_url, method: :delete %>
+<% end %>
+
+
+</footer>
+</html>

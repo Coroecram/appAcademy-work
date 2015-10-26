@@ -1,0 +1,19 @@
+<%content_for :title do%>
+: New <%=model.class.name%><%end%>
+<% downcase = model.class.name.downcase %>
+<% url =  "#{downcase}_url" %>
+<% title = "#{downcase}_title"%>
+
+
+<h1> What is the <%=downcase%>'s name?</h1>
+
+<form action="<%=url%>" method="POST">
+  <%= auth_token %>
+
+  <label for="<%=title%>"><%=model.class.name%> Name:</label>
+  <input type="text"
+         id="<%=title%>"
+         name="<%=downcase%>[title]">
+
+  <button>Submit</button>
+</form>

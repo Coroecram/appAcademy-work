@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MusicApp<%= yield :title %></title>
+  <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%#= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  </head>
+<body>
+<%= log_in_or_out %>
+<br><br>
+<font color="red"><%= flash[:error] %></font>
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<%content_for :title do%>
+: <%=@user.email %><% end %>
+
+<h1><%=@user.email%></h1>
+
+<%if same_user? %>
+  <form action="<%=user_url(@user)%>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+
+    <%= auth_token %>
+    <input type="submit" name="delete"
+      value="Delete My Account"
+        onClick="return confirm(
+                'Are you sure you want to delete your account?');">
+  </form>
+<%end%>

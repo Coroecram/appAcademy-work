@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GoalMotivate</title>
+  <link rel="stylesheet" media="all" href="/assets/application.css" data-turbolinks-track="true" />
+  <script src="/assets/application.js" data-turbolinks-track="true"></script>
+  
+</head>
+<body>
+
+    <a href="http://www.example.com/session/new"> Sign In</a>
+<h1>Sign In</h1>
+
+  <form action="http://www.example.com/session" method="POST">
+          <input type="hidden"
+             name="authenticity_token"
+             value="c4FkAvFOLYJFrN7EkNn8FJd5pB8LdEzvbOi0A9rQsetjwmv70aQyjhI/t1nVrcCADyBpcXkUAXjgBXvSBzUY1Q==">
+
+    <label>Username
+      <input type="text" name="user[username]">
+    </label>
+    <label>Password
+      <input type="text" name="user[password]">
+    </label>
+
+    <button value="submit">Sign In</button>
+  </form>
+
+</body>
+</html>

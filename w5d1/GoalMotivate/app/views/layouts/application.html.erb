@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GoalMotivate</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= flash[:errors] %>
+<% if logged_in? %>
+  <p>
+    Username: <%= current_user.username %>
+  </p>
+  <form action="<%= session_url%>" method="POST">
+    <%= auth_token %>
+      <input type="hidden" name="_method" value="DELETE">
+      <button value="submit">Log Out</button>
+  </form>
+  <a href="<%= user_url(current_user)%>">Home</a>
+<% else %>
+    <a href="<%= new_session_url %>"> Sign In</a> |
+    <a href="<%= new_user_url %>"> Sign Up</a>
+<% end %>
+<hr>
+
+<%= yield %>
+</body>
+</html>

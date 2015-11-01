@@ -1,0 +1,26 @@
+<h1><%= @goal.user.username %>'s goal.</h1>
+<p>
+  <%= @goal.name %>
+  <%= @goal.description %>
+  <%= @goal.completed ? "Completed" : "Not Completed" %>
+</p>
+<% if current_user == @goal.user %>
+<p>
+  <a href="<%= edit_goal_url(@goal) %>">Edit</a>
+  <form action="<%= goal_url(@goal) %>" method="POST">
+    <%= auth_token %>
+    <input type="hidden" name="_method" value="DELETE">
+    <button value="submit">Delete</button>
+  </form>
+</p>
+<% end %>
+
+<% @goal.comments.each do |comment| %>
+  <p><%= comment.comment %> by: <%= comment.user.username %></p>
+<% end %>
+
+<%= render 'comments/new', id: @goal.id, type: "Goal" %>
+
+
+<a href=" <%= user_goals_url(@goal.user) %>">
+Back to <%= @goal.user.username %>'s goals</a>

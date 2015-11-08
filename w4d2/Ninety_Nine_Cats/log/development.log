@@ -13406,3 +13406,4 @@ Processing by CatsController#show as HTML
   [1m[35mCatRentalRequest Load (0.2ms)[0m  SELECT "cat_rental_requests".* FROM "cat_rental_requests" WHERE "cat_rental_requests"."cat_id" = ?  [["cat_id", 5]]
   Rendered cats/show.html.erb within layouts/application (2.5ms)
 Completed 200 OK in 6ms (Views: 4.5ms | ActiveRecord: 0.3ms)
+  [1m[36mCat Load (2.0ms)[0m  [1mSELECT "cats".* FROM "cats"[0m

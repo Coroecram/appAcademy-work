@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Cool Website</title>
+    <script src="../js/jquery-2.1.4.js"></script>
+    <script src="../js/tabs.js"></script>
+    <link href="../css/tabs.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+
+
+
+    <ul class="tabs" data-content-tabs=".content-tabs">
+      <li><a href="#clumber-spaniel" class="active">Clumber Spaniel</a></li>
+      <li><a href="#maltese">Maltese</a></li>
+      <li><a href="#elkhound">Norwegian Elkhound</a></li>
+
+      <section class="content-tabs">
+        <article id="clumber-spaniel" class="active">
+          <p>
+            Soft, hairy, breed of Spaniel that is great with kids because it is clumsy and dumber than your average spaniel. Much like how kids are clumsier and dumber than your average person.
+          </p>
+        </article>
+        <article id="maltese">
+          <p>
+            Your average toy dog but with exquisite hair and bred for wig farms.
+          </p>
+        </article>
+        <article id="elkhound">
+          <p>
+            Neither Norwegian nor Elk nor hound. It was named by drunken Swedes and is only good for shedding.
+          </p>
+        </article>
+      </section>
+    </ul>
+
+
+
+
+  <script type="text/javascript">
+      // var newTab = new Tabs($('.tabs'));
+      $(function() {
+        $('.tabs').tabs();
+      })
+    </script>
+  </body>
+</html>

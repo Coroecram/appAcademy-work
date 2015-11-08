@@ -1,0 +1,70 @@
+html, body, section, article, title,
+h1, h2, p, a, img, ul {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  box-sizing: inherit;
+  font: inherit;
+  text-decoration: inherit;
+  text-align: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+li {
+  float: left;
+  height: 200px;
+}
+
+.items {
+  position: relative;
+  height: 200px;
+  width: 300px;
+  border: black solid 3px;
+  overflow: hidden;
+}
+
+.carousel {
+  position: relative;
+  height: 200px;
+  width: 300px;
+  /*overflow: hidden;*/
+}
+
+button {
+  margin: 23px 50px;
+}
+
+li {
+  display: none;
+}
+
+.active {
+  position: absolute;
+  left: 0px;
+  right: 0%;
+  display: block;
+  transition: left 1s;
+  z-index: -1;
+}
+
+.left {
+  position: absolute;
+  left: -100%;
+}
+
+.right {
+  position: absolute;
+  left: 100%;
+}
+
+.group:after {
+  display: block;
+  clear: both;
+  content: "";
+}

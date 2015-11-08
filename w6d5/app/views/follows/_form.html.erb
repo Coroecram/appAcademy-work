@@ -1,0 +1,4 @@
+<% follow_state = @user.followers.include?(current_user) ? true : false %>
+
+
+<button data-user-id="<%= @user.id %>" data-initial-follow-state="<%= follow_state %>" class="follow-toggle"></button>

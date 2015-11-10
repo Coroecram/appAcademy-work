@@ -38,7 +38,6 @@ $.TweetCompose.prototype.postTweet = function (data) {
   var content = data.content;
   var username = data.user.username;
   var mentionIds = data.mentions;
-  debugger;
   $li.append(content + ' -- <a href="http://localhost:3000/user/' + mentionIds + '"' + ">" + username + "</a> -- ");
   $li.append(Date.UTC(data.created_at));
   $ul.prepend($li);

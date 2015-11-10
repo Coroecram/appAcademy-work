@@ -1,0 +1,30 @@
+ul {
+  list-style: none;
+}
+
+strong {
+  font-weight: 300;
+}
+
+strong.active {
+  font-weight: 700;
+}
+
+#tabs p {
+  display: none;
+}
+
+#tabs p.active {
+  display: block;
+}
+
+#tabs strong.title {
+  float: left;
+  padding: 20px;
+}
+
+.group:after{
+  content: "";
+  clear: both;
+  display: block;
+}

@@ -1,0 +1,36 @@
+head, body, div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-style: comic-sans;
+  text-align: inherit;
+  text-decoration: inherit;
+  color: inherit;
+  background: transparent;
+}
+
+.group:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+#minesweeper {
+  width: 800px;
+  margin: 50px auto;
+  border: 8px solid gold;
+}
+
+div.row {
+  width: 180px;
+  margin: auto;
+}
+
+div.tile {
+  position: relative;
+  display: block;
+  float: left;
+  height: 20px;
+  width: 20px;
+  border: 1px solid black;
+  text-align: center;
+}

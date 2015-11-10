@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://localhost:8000/minesweeper/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Minesweeper</title>
+    <script src="./Minesweeper_files/react-0.13.3.js" charset="utf-8"></script>
+    <script src="./Minesweeper_files/JSXTransformer-0.13.3.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./Minesweeper_files/minesweeper.js"></script>
+    <script type="text/jsx" src="./Minesweeper_files/application.js"></script>
+  <script>var Board = React.createClass({displayName: "Board",
+
+  render: function(){
+    var grid = this.props.board.grid.map(function(row, rowIdx){
+                    return (React.createElement("div", {key: rowIdx, className: "row group"}, 
+                        row.map(function(tile, tileIdx){
+                          return React.createElement(Tile, {key: tileIdx, tile: tile, update: this.props.update});
+                        }.bind(this))
+                    ));
+               }.bind(this));
+    return (
+             React.createElement("div", null, 
+               grid
+             )
+           );
+  }
+});
+
+var Tile = React.createClass({displayName: "Tile",
+  displayState: function(){
+    var tile = this.props.tile;
+    if (tile.explored){
+      if (tile.bombed){
+        return " ۞ ";
+      } else if (tile.adjacentBombCount() === 0){
+        return "   ";
+      } else {
+        return " " + tile.adjacentBombCount() + " ";
+      }
+    } else if (tile.flagged){
+      return " ⚑ ";
+    } else {
+      return " T ";
+    }
+  },
+  render: function(){
+    return React.createElement("div", {className: "tile"}, this.displayState());
+  }
+
+});
+
+
+
+var Game = React.createClass({displayName: "Game",
+  getInitialState: function() {
+    return { board: new window.Minesweeper.Board(8,6),
+             over: false,
+             won: false
+           };
+  },
+  updateGame: function() {
+    return;
+  },
+  render: function() {
+    return (
+          React.createElement("div", null, 
+            React.createElement(Board, {board: this.state.board, update: this.updateGame})
+          )
+        );
+  }
+});
+
+React.render (
+  React.createElement(Game, null),
+  document.getElementById("minesweeper")
+);
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidHJhbnNmb3JtZWQuanMiLCJzb3VyY2VzIjpbIm1pbmVzd2VlcGVyL2FwcGxpY2F0aW9uLmpzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLElBQUksMkJBQTJCLHFCQUFBOztFQUU3QixNQUFNLEVBQUUsVUFBVTtJQUNoQixJQUFJLElBQUksR0FBRyxJQUFJLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsR0FBRyxDQUFDLFNBQVMsR0FBRyxFQUFFLE1BQU0sQ0FBQztvQkFDMUMsUUFBUSxvQkFBQSxLQUFJLEVBQUEsQ0FBQSxDQUFDLEdBQUEsRUFBRyxDQUFFLE1BQU0sRUFBQyxDQUFDLFNBQUEsRUFBUyxDQUFDLFdBQVksQ0FBQSxFQUFBO3dCQUMzQyxHQUFHLENBQUMsR0FBRyxDQUFDLFNBQVMsSUFBSSxFQUFFLE9BQU8sQ0FBQzswQkFDOUIsT0FBTyxvQkFBQyxJQUFJLEVBQUEsQ0FBQSxDQUFDLEdBQUEsRUFBRyxDQUFFLE9BQU8sRUFBQyxDQUFDLElBQUEsRUFBSSxDQUFFLElBQUksRUFBQyxDQUFDLE1BQUEsRUFBTSxDQUFFLElBQUksQ0FBQyxLQUFLLENBQUMsTUFBTyxDQUFFLENBQUEsQ0FBQzt5QkFDckUsQ0FBQyxJQUFJLENBQUMsSUFBSSxDQUFDLENBQUU7b0JBQ1osQ0FBQSxFQUFFO2dCQUNaLENBQUMsSUFBSSxDQUFDLElBQUksQ0FBQyxDQUFDLENBQUM7SUFDekI7YUFDUyxvQkFBQSxLQUFJLEVBQUEsSUFBQyxFQUFBO2VBQ0YsSUFBSzthQUNGLENBQUE7YUFDTjtHQUNWO0FBQ0gsQ0FBQyxDQUFDLENBQUM7O0FBRUgsSUFBSSwwQkFBMEIsb0JBQUE7RUFDNUIsWUFBWSxFQUFFLFVBQVU7SUFDdEIsSUFBSSxJQUFJLEdBQUcsSUFBSSxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUM7SUFDM0IsSUFBSSxJQUFJLENBQUMsUUFBUSxDQUFDO01BQ2hCLElBQUksSUFBSSxDQUFDLE1BQU0sQ0FBQztRQUNkLE9BQU8sS0FBSyxDQUFDO09BQ2QsTUFBTSxJQUFJLElBQUksQ0FBQyxpQkFBaUIsRUFBRSxLQUFLLENBQUMsQ0FBQztRQUN4QyxPQUFPLEtBQUssQ0FBQztPQUNkLE1BQU07UUFDTCxPQUFPLEdBQUcsR0FBRyxJQUFJLENBQUMsaUJBQWlCLEVBQUUsR0FBRyxHQUFHLENBQUM7T0FDN0M7S0FDRixNQUFNLElBQUksSUFBSSxDQUFDLE9BQU8sQ0FBQztNQUN0QixPQUFPLEtBQUssQ0FBQztLQUNkLE1BQU07TUFDTCxPQUFPLEtBQUssQ0FBQztLQUNkO0dBQ0Y7RUFDRCxNQUFNLEVBQUUsVUFBVTtJQUNoQixPQUFPLG9CQUFBLEtBQUksRUFBQSxDQUFBLENBQUMsU0FBQSxFQUFTLENBQUMsTUFBTyxDQUFBLEVBQUMsSUFBSSxDQUFDLFlBQVksRUFBUyxDQUFBLENBQUM7QUFDN0QsR0FBRzs7QUFFSCxDQUFDLENBQUMsQ0FBQztBQUNIO0FBQ0E7O0FBRUEsSUFBSSwwQkFBMEIsb0JBQUE7RUFDNUIsZUFBZSxFQUFFLFdBQVc7SUFDMUIsT0FBTyxFQUFFLEtBQUssRUFBRSxJQUFJLE1BQU0sQ0FBQyxXQUFXLENBQUMsS0FBSyxDQUFDLENBQUMsQ0FBQyxDQUFDLENBQUM7YUFDeEMsSUFBSSxFQUFFLEtBQUs7YUFDWCxHQUFHLEVBQUUsS0FBSztZQUNYLENBQUM7R0FDVjtFQUNELFVBQVUsRUFBRSxXQUFXO0lBQ3JCLE9BQU87R0FDUjtFQUNELE1BQU0sRUFBRSxXQUFXO0lBQ2pCO1VBQ00sb0JBQUEsS0FBSSxFQUFBLElBQUMsRUFBQTtZQUNILG9CQUFDLEtBQUssRUFBQSxDQUFBLENBQUMsS0FBQSxFQUFLLENBQUUsSUFBSSxDQUFDLEtBQUssQ0FBQyxLQUFLLEVBQUMsQ0FBQyxNQUFBLEVBQU0sQ0FBRSxJQUFJLENBQUMsVUFBVyxDQUFBLENBQUcsQ0FBQTtVQUN2RCxDQUFBO1VBQ047R0FDUDtBQUNILENBQUMsQ0FBQyxDQUFDOztBQUVILEtBQUssQ0FBQyxNQUFNO0VBQ1Ysb0JBQUMsSUFBSSxFQUFBLElBQUEsQ0FBRyxDQUFBO0VBQ1IsUUFBUSxDQUFDLGNBQWMsQ0FBQyxhQUFhLENBQUM7Q0FDdkMsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbInZhciBCb2FyZCA9IFJlYWN0LmNyZWF0ZUNsYXNzKHtcblxuICByZW5kZXI6IGZ1bmN0aW9uKCl7XG4gICAgdmFyIGdyaWQgPSB0aGlzLnByb3BzLmJvYXJkLmdyaWQubWFwKGZ1bmN0aW9uKHJvdywgcm93SWR4KXtcbiAgICAgICAgICAgICAgICAgICAgcmV0dXJuICg8ZGl2IGtleT17cm93SWR4fSBjbGFzc05hbWU9XCJyb3cgZ3JvdXBcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgIHtyb3cubWFwKGZ1bmN0aW9uKHRpbGUsIHRpbGVJZHgpe1xuICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gPFRpbGUga2V5PXt0aWxlSWR4fSB0aWxlPXt0aWxlfSB1cGRhdGU9e3RoaXMucHJvcHMudXBkYXRlfS8+O1xuICAgICAgICAgICAgICAgICAgICAgICAgfS5iaW5kKHRoaXMpKX1cbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+KTtcbiAgICAgICAgICAgICAgIH0uYmluZCh0aGlzKSk7XG4gICAgcmV0dXJuIChcbiAgICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICAge2dyaWR9XG4gICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICk7XG4gIH1cbn0pO1xuXG52YXIgVGlsZSA9IFJlYWN0LmNyZWF0ZUNsYXNzKHtcbiAgZGlzcGxheVN0YXRlOiBmdW5jdGlvbigpe1xuICAgIHZhciB0aWxlID0gdGhpcy5wcm9wcy50aWxlO1xuICAgIGlmICh0aWxlLmV4cGxvcmVkKXtcbiAgICAgIGlmICh0aWxlLmJvbWJlZCl7XG4gICAgICAgIHJldHVybiBcIiDbniBcIjtcbiAgICAgIH0gZWxzZSBpZiAodGlsZS5hZGphY2VudEJvbWJDb3VudCgpID09PSAwKXtcbiAgICAgICAgcmV0dXJuIFwiICAgXCI7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICByZXR1cm4gXCIgXCIgKyB0aWxlLmFkamFjZW50Qm9tYkNvdW50KCkgKyBcIiBcIjtcbiAgICAgIH1cbiAgICB9IGVsc2UgaWYgKHRpbGUuZmxhZ2dlZCl7XG4gICAgICByZXR1cm4gXCIg4pqRIFwiO1xuICAgIH0gZWxzZSB7XG4gICAgICByZXR1cm4gXCIgVCBcIjtcbiAgICB9XG4gIH0sXG4gIHJlbmRlcjogZnVuY3Rpb24oKXtcbiAgICByZXR1cm4gPGRpdiBjbGFzc05hbWU9XCJ0aWxlXCI+e3RoaXMuZGlzcGxheVN0YXRlKCl9PC9kaXY+O1xuICB9XG5cbn0pO1xuXG5cblxudmFyIEdhbWUgPSBSZWFjdC5jcmVhdGVDbGFzcyh7XG4gIGdldEluaXRpYWxTdGF0ZTogZnVuY3Rpb24oKSB7XG4gICAgcmV0dXJuIHsgYm9hcmQ6IG5ldyB3aW5kb3cuTWluZXN3ZWVwZXIuQm9hcmQoOCw2KSxcbiAgICAgICAgICAgICBvdmVyOiBmYWxzZSxcbiAgICAgICAgICAgICB3b246IGZhbHNlXG4gICAgICAgICAgIH07XG4gIH0sXG4gIHVwZGF0ZUdhbWU6IGZ1bmN0aW9uKCkge1xuICAgIHJldHVybjtcbiAgfSxcbiAgcmVuZGVyOiBmdW5jdGlvbigpIHtcbiAgICByZXR1cm4gKFxuICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICA8Qm9hcmQgYm9hcmQ9e3RoaXMuc3RhdGUuYm9hcmR9IHVwZGF0ZT17dGhpcy51cGRhdGVHYW1lfSAvPlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICApO1xuICB9XG59KTtcblxuUmVhY3QucmVuZGVyIChcbiAgPEdhbWUgLz4sXG4gIGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKFwibWluZXN3ZWVwZXJcIilcbik7XG4iXX0=</script></head>
+  <body>
+    <div id="minesweeper"><div data-reactid=".0"><div data-reactid=".0.0"><div class="row group" data-reactid=".0.0.$0"><div class="tile" data-reactid=".0.0.$0.$0" style="
+    float: left;
+"> T </div><div class="tile" data-reactid=".0.0.$0.$1"> T </div><div class="tile" data-reactid=".0.0.$0.$2"> T </div><div class="tile" data-reactid=".0.0.$0.$3"> T </div><div class="tile" data-reactid=".0.0.$0.$4"> T </div><div class="tile" data-reactid=".0.0.$0.$5"> T </div><div class="tile" data-reactid=".0.0.$0.$6"> T </div><div class="tile" data-reactid=".0.0.$0.$7"> T </div></div><div class="row group" data-reactid=".0.0.$1"><div class="tile" data-reactid=".0.0.$1.$0"> T </div><div class="tile" data-reactid=".0.0.$1.$1"> T </div><div class="tile" data-reactid=".0.0.$1.$2"> T </div><div class="tile" data-reactid=".0.0.$1.$3"> T </div><div class="tile" data-reactid=".0.0.$1.$4"> T </div><div class="tile" data-reactid=".0.0.$1.$5"> T </div><div class="tile" data-reactid=".0.0.$1.$6"> T </div><div class="tile" data-reactid=".0.0.$1.$7"> T </div></div><div class="row group" data-reactid=".0.0.$2"><div class="tile" data-reactid=".0.0.$2.$0"> T </div><div class="tile" data-reactid=".0.0.$2.$1"> T </div><div class="tile" data-reactid=".0.0.$2.$2"> T </div><div class="tile" data-reactid=".0.0.$2.$3"> T </div><div class="tile" data-reactid=".0.0.$2.$4"> T </div><div class="tile" data-reactid=".0.0.$2.$5"> T </div><div class="tile" data-reactid=".0.0.$2.$6"> T </div><div class="tile" data-reactid=".0.0.$2.$7"> T </div></div><div class="row group" data-reactid=".0.0.$3"><div class="tile" data-reactid=".0.0.$3.$0"> T </div><div class="tile" data-reactid=".0.0.$3.$1"> T </div><div class="tile" data-reactid=".0.0.$3.$2"> T </div><div class="tile" data-reactid=".0.0.$3.$3"> T </div><div class="tile" data-reactid=".0.0.$3.$4"> T </div><div class="tile" data-reactid=".0.0.$3.$5"> T </div><div class="tile" data-reactid=".0.0.$3.$6"> T </div><div class="tile" data-reactid=".0.0.$3.$7"> T </div></div><div class="row group" data-reactid=".0.0.$4"><div class="tile" data-reactid=".0.0.$4.$0"> T </div><div class="tile" data-reactid=".0.0.$4.$1"> T </div><div class="tile" data-reactid=".0.0.$4.$2"> T </div><div class="tile" data-reactid=".0.0.$4.$3"> T </div><div class="tile" data-reactid=".0.0.$4.$4"> T </div><div class="tile" data-reactid=".0.0.$4.$5"> T </div><div class="tile" data-reactid=".0.0.$4.$6"> T </div><div class="tile" data-reactid=".0.0.$4.$7"> T </div></div><div class="row group" data-reactid=".0.0.$5"><div class="tile" data-reactid=".0.0.$5.$0"> T </div><div class="tile" data-reactid=".0.0.$5.$1"> T </div><div class="tile" data-reactid=".0.0.$5.$2"> T </div><div class="tile" data-reactid=".0.0.$5.$3"> T </div><div class="tile" data-reactid=".0.0.$5.$4"> T </div><div class="tile" data-reactid=".0.0.$5.$5"> T </div><div class="tile" data-reactid=".0.0.$5.$6"> T </div><div class="tile" data-reactid=".0.0.$5.$7"> T </div></div><div class="row group" data-reactid=".0.0.$6"><div class="tile" data-reactid=".0.0.$6.$0"> T </div><div class="tile" data-reactid=".0.0.$6.$1"> T </div><div class="tile" data-reactid=".0.0.$6.$2"> T </div><div class="tile" data-reactid=".0.0.$6.$3"> T </div><div class="tile" data-reactid=".0.0.$6.$4"> T </div><div class="tile" data-reactid=".0.0.$6.$5"> T </div><div class="tile" data-reactid=".0.0.$6.$6"> T </div><div class="tile" data-reactid=".0.0.$6.$7"> T </div></div><div class="row group" data-reactid=".0.0.$7"><div class="tile" data-reactid=".0.0.$7.$0"> T </div><div class="tile" data-reactid=".0.0.$7.$1"> T </div><div class="tile" data-reactid=".0.0.$7.$2"> T </div><div class="tile" data-reactid=".0.0.$7.$3"> T </div><div class="tile" data-reactid=".0.0.$7.$4"> T </div><div class="tile" data-reactid=".0.0.$7.$5"> T </div><div class="tile" data-reactid=".0.0.$7.$6"> T </div><div class="tile" data-reactid=".0.0.$7.$7"> T </div></div></div></div></div>
+
+  
+
+</body></html>

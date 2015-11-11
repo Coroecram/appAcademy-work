@@ -1,14 +1,9 @@
 var Board = React.createClass({
-  handleClick: function(e){
-    debugger;
-    console.log("click");
-  },
   render: function(){
     var grid = this.props.board.grid.map(function(row, rowIdx){
                     return (<div key={rowIdx} className="row group">
                         {row.map(function(tile, tileIdx){
                           return <Tile key={tileIdx} tile={tile} onClick={this.handleClick} update={this.props.update}/>;
-
                         }.bind(this))}
                     </div>);
                }.bind(this));
@@ -38,9 +33,12 @@ var Tile = React.createClass({
     }
   },
 
+  handleClick: function(e){
+    debugger;
+  },
 
   render: function(){
-    return <div onClick={this.props.onClick} className="tile">{this.displayState()}</div>;
+    return <div onClick={this.handleClick} className="tile">{this.displayState()}</div>;
   }
 
 });
@@ -65,8 +63,3 @@ var Game = React.createClass({
         );
   }
 });
-
-React.render (
-  <Game />,
-  document.getElementById("minesweeper")
-);
